@@ -1,5 +1,5 @@
 mountpoints:
   /:
-    url: "https://author-p165753-e1767020.adobeaemcloud.com/bin/franklin.delivery/xiaoyu214/aem-ue-editor/main"
+    url: "https://author-p165753-e1767020.adobeaemcloud.com/bin/franklin.delivery/adobe87373/moxa-eds/main"
     type: "markup"
     suffix: ".html"

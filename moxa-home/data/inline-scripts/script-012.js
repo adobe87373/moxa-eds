@@ -1,6 +1,6 @@
-//<![CDATA[
-var a_cid = 111492189;
-var a_nid = 828;
-var a_culture = 'en-US';
-var a_loggedin = false;
-//]]>
+// <![CDATA[
+const a_cid = 111492189;
+const a_nid = 828;
+const a_culture = 'en-US';
+const a_loggedin = false;
+// ]]>

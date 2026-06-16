@@ -1,6 +1,6 @@
 (() => {
   const duration = 1500;
-  const easeOutCubic = (value) => 1 - Math.pow(1 - value, 3);
+  const easeOutCubic = (value) => 1 - (1 - value) ** 3;
 
   function setFinalValue(element, target) {
     element.textContent = String(target);

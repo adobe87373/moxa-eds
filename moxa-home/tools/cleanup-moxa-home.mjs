@@ -227,7 +227,9 @@ function writeComponents(html) {
     ? bodySection.replace(banner, '').trim()
     : body.replace(header, '').replace(footer, '').replace(banner, '').trim();
 
-  const components = { header, banner, main, footer };
+  const components = {
+    header, banner, main, footer,
+  };
   for (const [name, value] of Object.entries(components)) {
     write(path.join(componentDir, `${name}.html`), `${componentRelativeAssets(value).trim()}\n`);
   }

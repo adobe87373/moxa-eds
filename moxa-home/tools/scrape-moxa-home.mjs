@@ -207,7 +207,9 @@ async function downloadResources(initialGroups) {
       ensureDir(path.dirname(outputPath));
       fs.writeFileSync(outputPath, buffer);
       mapping[url] = relativePath.replace(/\\/g, '/');
-      downloaded.push({ url, localPath: mapping[url], contentType, bytes: buffer.byteLength });
+      downloaded.push({
+        url, localPath: mapping[url], contentType, bytes: buffer.byteLength,
+      });
 
       if (group === 'css') {
         const cssText = buffer.toString('utf8');
@@ -290,7 +292,9 @@ function extractInlineData(html) {
     const ext = type.includes('json') ? '.json' : '.js';
     const file = `script-${String(index).padStart(3, '0')}${ext}`;
     fs.writeFileSync(path.join(inlineScriptDir, file), content);
-    scripts.push({ file: `data/inline-scripts/${file}`, type, attrs, bytes: Buffer.byteLength(content) });
+    scripts.push({
+      file: `data/inline-scripts/${file}`, type, attrs, bytes: Buffer.byteLength(content),
+    });
   }
   return scripts;
 }
@@ -365,7 +369,9 @@ async function main() {
     ? bodySection.replace(banner, '').trim()
     : body.replace(header, '').replace(footer, '').replace(banner, '').trim();
 
-  const components = { header, banner, main, footer };
+  const components = {
+    header, banner, main, footer,
+  };
   for (const [name, value] of Object.entries(components)) {
     fs.writeFileSync(path.join(componentDir, `${name}.html`), `${value.trim()}\n`);
   }

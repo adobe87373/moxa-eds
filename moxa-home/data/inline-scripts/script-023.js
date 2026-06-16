@@ -1,1 +1,1 @@
-var arrayAds=[];
+const arrayAds = [];

@@ -38,6 +38,7 @@ function contentPathFromReference(reference) {
 function apiUrlFromContentFragmentPath(reference) {
   const contentPath = contentPathFromReference(reference)
     .replace(/\.json$/, '')
+    .replace(/\.html$/, '')
     .replace(/\/$/, '');
 
   if (!contentPath.startsWith('/content/dam/')) return '';

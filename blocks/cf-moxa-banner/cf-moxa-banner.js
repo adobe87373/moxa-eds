@@ -54,6 +54,10 @@ function apiUrlFromContentFragmentPath(reference) {
   }
 }
 
+function isAuthorHost() {
+  return window.location.hostname.endsWith('.adobeaemcloud.com');
+}
+
 function fieldValue(field) {
   if (field == null) return '';
   if (typeof field === 'string') return field;
@@ -105,13 +109,65 @@ function buttonFromCta(cta) {
   };
 }
 
+async function readJsonResponse(response) {
+  const text = await response.text();
+  if (!text.trim().startsWith('{')) return null;
+  return JSON.parse(text);
+}
+
+function fetchJsonWithNavigation(apiUrl) {
+  return new Promise((resolve) => {
+    const iframe = document.createElement('iframe');
+    let completed = false;
+
+    iframe.hidden = true;
+    iframe.setAttribute('aria-hidden', 'true');
+
+    const finish = (value) => {
+      if (completed) return;
+      completed = true;
+      iframe.remove();
+      resolve(value);
+    };
+
+    const timeout = window.setTimeout(() => finish(null), 5000);
+
+    iframe.addEventListener('load', () => {
+      window.clearTimeout(timeout);
+
+      try {
+        const text = iframe.contentDocument?.body?.textContent.trim();
+        finish(text ? JSON.parse(text) : null);
+      } catch (e) {
+        finish(null);
+      }
+    });
+
+    iframe.src = apiUrl;
+    document.body.append(iframe);
+  });
+}
+
 async function fetchContentFragment(reference) {
   const apiUrl = apiUrlFromContentFragmentPath(reference);
   if (!apiUrl) return null;
 
-  const response = await fetch(apiUrl);
-  if (!response.ok) return null;
-  return response.json();
+  const response = await fetch(apiUrl, {
+    headers: {
+      Accept: 'application/json',
+    },
+  });
+
+  if (response.ok) {
+    const json = await readJsonResponse(response);
+    if (json) return json;
+  }
+
+  if (isAuthorHost()) {
+    return fetchJsonWithNavigation(apiUrl);
+  }
+
+  return null;
 }
 
 async function readConfig(block) {
@@ -120,11 +176,12 @@ async function readConfig(block) {
   const contentFragment = await fetchContentFragment(reference);
   const elements = elementsFromContentFragment(contentFragment);
   const button = buttonFromCta(getElement(elements, 'cta'));
+  const description = plainTextFromHtml(getElement(elements, 'description'));
 
   return {
     backgroundImage: getElement(elements, 'backgroundImage') || getElement(elements, 'image') || defaults.backgroundImage,
     heading: getElement(elements, 'title') || defaults.heading,
-    description: getElement(elements, 'description') || defaults.description,
+    description: description || defaults.description,
     buttonText: button.text,
     buttonLink: button.href,
   };

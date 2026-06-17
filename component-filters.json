@@ -17,6 +17,7 @@
       "columns",
       "fragment",
       "moxa-banner",
+      "cf-moxa-banner",
       "moxa-content",
       "moxa-footer",
       "moxa-header"

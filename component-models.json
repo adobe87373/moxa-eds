@@ -161,6 +161,21 @@
     ]
   },
   {
+    "id": "cf-moxa-banner",
+    "fields": [
+      {
+        "component": "aem-content-fragment",
+        "valueType": "string",
+        "name": "contentFragment",
+        "label": "Content Fragment",
+        "variationName": "contentFragmentVariation",
+        "validation": {
+          "rootPath": "/content/dam/moxa-eds"
+        }
+      }
+    ]
+  },
+  {
     "id": "columns",
     "fields": [
       {

@@ -161,6 +161,20 @@
     ]
   },
   {
+    "id": "cf-card",
+    "fields": [
+      {
+        "component": "aem-content-fragment",
+        "valueType": "string",
+        "name": "contentFragment",
+        "label": "Content Fragment",
+        "validation": {
+          "rootPath": "/content/dam/moxa-eds"
+        }
+      }
+    ]
+  },
+  {
     "id": "cf-moxa-banner",
     "fields": [
       {

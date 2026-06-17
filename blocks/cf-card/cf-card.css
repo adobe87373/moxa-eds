@@ -1,0 +1,46 @@
+main .cf-card {
+  margin: 0;
+}
+
+main .cf-card-inner {
+  position: relative;
+  overflow: hidden;
+  max-width: 760px;
+  min-height: 180px;
+  padding: 28px;
+  border: 1px solid #d7dde5;
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgb(0 99 177 / 8%), rgb(255 255 255 / 0%) 46%),
+    var(--background-color);
+  box-shadow: 0 14px 32px rgb(18 35 56 / 10%);
+}
+
+main .cf-card-inner::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  background: #0063b1;
+}
+
+main .cf-card-title {
+  margin: 0 0 14px;
+  color: #10243d;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-m);
+  line-height: 1.2;
+}
+
+main .cf-card-description {
+  margin: 0;
+  color: #46566a;
+  font-size: var(--body-font-size-m);
+  line-height: 1.6;
+}
+
+@media (width >= 600px) {
+  main .cf-card-inner {
+    padding: 36px 40px;
+  }
+}
